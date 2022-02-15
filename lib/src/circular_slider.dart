@@ -24,6 +24,7 @@ class SleekCircularSlider extends StatefulWidget {
   final OnChange? onChangeStart;
   final OnChange? onChangeEnd;
   final InnerWidget? innerWidget;
+  final bool isOpaque;
   static const defaultAppearance = CircularSliderAppearance();
 
   double get angle {
@@ -35,6 +36,7 @@ class SleekCircularSlider extends StatefulWidget {
       this.initialValue = 50,
       this.min = 0,
       this.max = 100,
+      this.isOpaque = false,
       this.appearance = defaultAppearance,
       this.onChange,
       this.onChangeStart,
@@ -146,6 +148,7 @@ class _SleekCircularSliderState extends State<SleekCircularSlider>
       _setupPainter();
     }
     return RawGestureDetector(
+        behavior: widget.isOpaque ? HitTestBehavior.opaque : widget.innerWidget != null ? HitTestBehavior.defetToChild : HitTestBehavior.translucent, 
         gestures: <Type, GestureRecognizerFactory>{
           _CustomPanGestureRecognizer:
               GestureRecognizerFactoryWithHandlers<_CustomPanGestureRecognizer>(
